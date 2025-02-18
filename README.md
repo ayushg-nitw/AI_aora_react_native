@@ -6,9 +6,6 @@ This is my first react native app with expo and several other helpful libraries.
 # Welcome to your Expo app 👋
 
 ## App Screenshots
-
-## App Screenshots
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ee0669a4-36fd-45e2-a98b-53c3d14aea47" width="200" style="margin: 10px;">
   <img src="https://github.com/user-attachments/assets/0029b515-562d-48df-9c66-496ff24bddb1" width="200" style="margin: 10px;">

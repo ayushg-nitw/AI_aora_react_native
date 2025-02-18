@@ -24,6 +24,14 @@ const Home = () => {
 
   const {user, setUser, setIsLoggedIn} = useGlobalContext();
 
+  if (!user || !user.documents || user.documents.length === 0) {
+    return (
+      <SafeAreaView className="bg-primary h-full flex items-center justify-center">
+        <Text className="text-white text-lg">Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
@@ -47,32 +55,40 @@ const Home = () => {
     setActiveVideo((prev) => (prev === videoId ? null : videoId)); // Stop previous video
   };
 
-  const handleBookmark = async (videoId) => {
-
-    if (!user) return alert("You need to be logged in to bookmark videos.");
-    try {
-      const video = posts.find((item) => item.$id === videoId);
-      if (!video) return;
+   const handleBookmark = async (videoId) => {
+      if (!user || !user.documents || user.documents.length === 0) {
+        Alert.alert("Error", "User information is missing. Please log in again.");
+        return;
+      }
+    
+      try {
+         const video = posts.find((item) => item.$id === videoId);
+        if (!video) return;
+    
+        const userId = user.documents[0].$id;
   
-      const isBookmarked = video.bookmark.includes(user.documents[0].$id); // Check if user already bookmarked
-      
-      const updatedBookmarks = isBookmarked
-        ? video.bookmark.filter((userId) => userId !== user.documents[0].$id) // Remove user
-        : [...video.bookmark, user.documents[0].$id]; // Add user
+        const isBookmarked = video.bookmark.includes(userId);
+    
+        if (isBookmarked) {
+          Alert.alert("Already Bookmarked", "This video is already in your bookmarks!");
+          return;
+        }
+        // If not bookmarked, add to bookmarks
+        const updatedBookmarks = [...video.bookmark, userId];
+    
+        // Update the video document in Appwrite
+        await updateDocument(videoId, { bookmark: updatedBookmarks });
+        Alert.alert("Success", "Video Bookmarked Successfully!");
+    
+        // Small delay before refetch to ensure state updates properly
+        setTimeout(() => refetch(), 500);
+    
+      } catch (error) {
+        console.error("Error updating bookmark:", error);
+        Alert.alert("Error", "Failed to update bookmark. Try again.");
+      }
+    };
   
-      // Update the video document in Appwrite
-      await updateDocument(videoId, { bookmark: updatedBookmarks });
-      Alert.alert('Success', "Video Bookmarked Successfully!");
-
-      // Update local state to reflect the change
-      refetch();
-
-    } catch (error) {
-      console.error("Error updating bookmark:", error);
-      alert("Failed to update bookmark. Try again.");
-    }
-  };
-
   useFocusEffect(
     React.useCallback(() => {
       return () => setActiveVideo(null); // Runs when tab loses focus
@@ -103,7 +119,9 @@ const Home = () => {
             <View className="justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100"> Welcome back</Text>
-                <Text className="text-2xl font-psemibold text-white">{user.documents[0]?.username}</Text>
+                <Text className="text-2xl font-psemibold text-white">
+                   {user?.documents?.[0]?.username || "Guest"}
+                </Text>
               </View>
               <View className="mt-1.5">
                 <Image source={images.logoSmall} className="w-9 h-10" resizeMode="contain" />

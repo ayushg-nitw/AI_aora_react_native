@@ -1,4 +1,5 @@
 import { Text, View, ScrollView, SafeAreaView, Image, Alert } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
@@ -74,6 +75,7 @@ const SignIn = () => {
           </View>
         </View>
       </ScrollView>
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 }

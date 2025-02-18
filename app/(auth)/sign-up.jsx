@@ -4,7 +4,7 @@ import { images } from '../../constants'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
-import { createUser } from '../../lib/appwrite'
+import { createUser,getCurrentUser } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/GlobalProvider'  // Import Global Context
 
 const SignUp = () => {
@@ -17,16 +17,23 @@ const SignUp = () => {
       Alert.alert('Error', 'Please fill in all the fields');
       return;
     }
-
+  
     setisSubmitting(true);
-
+  
     try {
       const result = await createUser(signupform.email, signupform.password, signupform.username);
-
+  
       if (result) {
-        setUser(result);
-        setIsLoggedIn(true);
-        router.replace('/home');
+        // Fetch latest user details
+        const updatedUser = await getCurrentUser();
+        
+        if (updatedUser) {
+          setUser(updatedUser);
+          setIsLoggedIn(true);
+          router.replace('/home');  // Navigate only when user is defined
+        } else {
+          throw new Error("Failed to retrieve user details.");
+        }
       } else {
         throw new Error("User creation failed.");
       }

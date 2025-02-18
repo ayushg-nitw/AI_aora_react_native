@@ -3,31 +3,30 @@ This is my first react native app with expo and several other helpful libraries.
 =======
 
 
-
-
-
-
-
-
-
-
-
 # Welcome to your Expo app 👋
 
-![WhatsApp Image 2025-02-19 at 02 45 19_5187def1](https://github.com/user-attachments/assets/ee0669a4-36fd-45e2-a98b-53c3d14aea47)
-![WhatsApp Image 2025-02-19 at 02 45 18_9674abf8](https://github.com/user-attachments/assets/0029b515-562d-48df-9c66-496ff24bddb1)
-![WhatsApp Image 2025-02-19 at 02 45 03_5d20f4d7](https://github.com/user-attachments/assets/941165fe-8d3f-4b38-8a41-8b6c7c97c3e0)
+## App Screenshots
 
-![WhatsApp Image 2025-02-19 at 02 45 17_4b845370](https://github.com/user-attachments/assets/756e060b-f495-4431-b0f8-085b1d6e1e15)
-![WhatsApp Image 2025-02-19 at 02 45 16_d0bfae0f](https://github.com/user-attachments/assets/b83bb434-fe41-478e-83d7-097654d3e310)
-![WhatsApp Image 2025-02-19 at 02 45 09_6db67c86](https://github.com/user-attachments/assets/789f2f82-7af8-471e-b513-a42c9ae5ce43)
-![WhatsApp Image 2025-02-19 at 02 45 08_e9822fa8](https://github.com/user-attachments/assets/26971e3c-aefa-4a24-af8b-9cc20a22411c)
-![WhatsApp Image 2025-02-19 at 02 45 06_55d31575](https://github.com/user-attachments/assets/348825e3-2053-441a-9af9-89fa96cbb322)
-![WhatsApp Image 2025-02-19 at 02 45 06_96a7f423](https://github.com/user-attachments/assets/430210fb-40f6-4ef5-bdb7-f3f7e8e61d3a)
-![WhatsApp Image 2025-02-19 at 02 45 05_f7bb58ab](https://github.com/user-attachments/assets/5e00b6f6-a260-46e5-ad80-e7e339f884f7)
-![WhatsApp Image 2025-02-19 at 02 45 04_d3c24a26](https://github.com/user-attachments/assets/79da1706-a10d-40cf-9654-25fd4ba3018c)
-![WhatsApp Image 2025-02-19 at 02 45 04_d5dde636](https://github.com/user-attachments/assets/2ce6810a-f7dc-49b3-9541-7f41e2f7843d)
-![WhatsApp Image 2025-02-19 at 02 45 00_4bda7fd5](https://github.com/user-attachments/assets/eb96bda4-a9f1-4718-b16c-9038b90d874c)
+## App Screenshots
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ee0669a4-36fd-45e2-a98b-53c3d14aea47" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/0029b515-562d-48df-9c66-496ff24bddb1" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/941165fe-8d3f-4b38-8a41-8b6c7c97c3e0" width="200" style="margin: 10px;">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/756e060b-f495-4431-b0f8-085b1d6e1e15" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/b83bb434-fe41-478e-83d7-097654d3e310" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/789f2f82-7af8-471e-b513-a42c9ae5ce43" width="200" style="margin: 10px;">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/26971e3c-aefa-4a24-af8b-9cc20a22411c" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/348825e3-2053-441a-9af9-89fa96cbb322" width="200" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/430210fb-40f6-4ef5-bdb7-f3f7e8e61d3a" width="200" style="margin: 10px;">
+</p>
+
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 

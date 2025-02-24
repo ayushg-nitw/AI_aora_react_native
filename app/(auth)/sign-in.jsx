@@ -1,15 +1,15 @@
-import { Text, View, ScrollView, SafeAreaView, Image, Alert } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
-import { images } from '../../constants'
-import FormField from '../../components/FormField'
-import CustomButton from '../../components/CustomButton'
-import { Link, router } from 'expo-router'
-import { getCurrentUser, signIn } from '../../lib/appwrite'
-import { useGlobalContext } from '../../context/GlobalProvider'  // Import Global Context
+import { Text, View, ScrollView, SafeAreaView, Image, Alert } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+import { images } from '../../constants';
+import FormField from '../../components/FormField';
+import CustomButton from '../../components/CustomButton';
+import { Link, router } from 'expo-router';
+import { getCurrentUser, signIn } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignIn = () => {
-  const { setUser, setIsLoggedIn } = useGlobalContext();  // Access Global State
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [loginform, setloginform] = useState({ email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -23,17 +23,23 @@ const SignIn = () => {
 
     try {
       await signIn(loginform.email, loginform.password);
-      const result = await getCurrentUser(); // Ensure it's awaited
 
-      if (result) {
-        setUser(result);
-        setIsLoggedIn(true);
-        Alert.alert('Success', 'User signed in Successfully');
-        router.replace('/home');
-      } else {
-        throw new Error("User not authenticated.");
-      }
+      // Fetch user again with delay to ensure session is set
+      setTimeout(async () => {
+        const result = await getCurrentUser();
+        console.log("Fetched User Data:", result); // Debugging
+        if (result) {
+          setUser(result);
+          setIsLoggedIn(true);
+          Alert.alert('Success', 'User signed in Successfully');
+          router.replace('/home');
+        } else {
+          throw new Error("User data not available. Try logging in again.");
+        }
+      }, 1000); // Small delay to ensure session persistence
+
     } catch (error) {
+      console.error("Sign-in Error:", error);
       Alert.alert('Error', error.message);
     } finally {
       setIsSubmitting(false);
@@ -60,6 +66,7 @@ const SignIn = () => {
             value={loginform.password}
             handleChangeText={(e) => setloginform({ ...loginform, password: e })}
             otherStyles="mt-7"
+            secureTextEntry
           />
 
           <CustomButton

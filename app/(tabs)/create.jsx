@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, Alert, Mod
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '@/components/FormField';
-import VideoCard from '../../components/VideoCard';
 import { icons } from '@/constants';
 import CustomButton from '@/components/CustomButton';
 import * as DocumentPicker from 'expo-document-picker';
@@ -45,7 +44,7 @@ const Create = () => {
     try {
       await createVideo({
         ...form,
-        userId: user.documents[0].$id,
+        userId: user.$id,
       });
       Alert.alert('Success', 'Post uploaded successfully!');
       router.push('/home');
@@ -85,8 +84,8 @@ const Create = () => {
                   thumbnail: form.thumbnail?.uri || '',
                   video: form.video.uri,
                   creators: {
-                    username: user?.documents?.[0]?.username || 'Unknown',
-                    avatar: user?.documents?.[0]?.avatar || '',
+                    username: user?.username || 'Unknown',
+                    avatar: user?.avatar || '',
                   },
                 }}
                 isPlaying={false}

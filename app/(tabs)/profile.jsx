@@ -1,5 +1,5 @@
-import { FlatList, Text, TouchableOpacity, View, Image, Modal } from 'react-native';
-import React, { useState } from 'react';
+import { FlatList, Text, TouchableOpacity, View, Image, Modal, RefreshControl } from 'react-native';
+import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -14,7 +14,8 @@ import VideoScreen from '../../components/VideoScreen';
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
-  const { data: posts } = useAppwrite(() => getUserPosts(user.documents[0].$id));
+  const [refreshing, setRefreshing] = useState(false);
+  const { data: posts, refetch } = useAppwrite(() => getUserPosts(user.$id));
 
   const [selectedVideo, setSelectedVideo] = useState(null); // Store selected video
   const [play, setPlay] = useState(false); // Play state
@@ -25,6 +26,12 @@ const Profile = () => {
     setIsLoggedIn(false);
     router.replace('/sign-in'); // Navigate to sign-in page
   };
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }, [refetch]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -47,15 +54,13 @@ const Profile = () => {
         {/* User Avatar */}
         <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
           <Image
-            source={{ uri: user.documents[0]?.avatar }}
+            source={{ uri: user?.avatar }}
             className="w-[90%] h-[90%] rounded-lg"
             resizeMode="cover"
           />
         </View>
 
-
-        <InfoBox title={user.documents[0]?.username} containerStyles="mt-5" titleStyles="text-lg" />
-
+        <InfoBox title={user?.username} containerStyles="mt-5" titleStyles="text-lg" />
 
         {/* Posts & Followers Count */}
         <View className="mt-5 flex-row">
@@ -82,6 +87,7 @@ const Profile = () => {
           </TouchableOpacity>
         )}
         ListEmptyComponent={() => <EmptyState title="No videos found!" subtitle="No videos uploaded yet!" />}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
 
       {/* Video Modal */}

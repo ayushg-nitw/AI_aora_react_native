@@ -24,13 +24,13 @@ const Home = () => {
 
   const {user, setUser, setIsLoggedIn} = useGlobalContext();
 
-  if (!user || !user.documents || user.documents.length === 0) {
-    return (
-      <SafeAreaView className="bg-primary h-full flex items-center justify-center">
-        <Text className="text-white text-lg">Loading...</Text>
-      </SafeAreaView>
-    );
-  }
+if (!user) {
+  return (
+    <SafeAreaView className="bg-primary h-full flex items-center justify-center">
+      <Text className="text-white text-lg">Loading...</Text>
+    </SafeAreaView>
+  );
+}
 
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
@@ -56,7 +56,7 @@ const Home = () => {
   };
 
    const handleBookmark = async (videoId) => {
-      if (!user || !user.documents || user.documents.length === 0) {
+      if (!user) {
         Alert.alert("Error", "User information is missing. Please log in again.");
         return;
       }
@@ -65,7 +65,7 @@ const Home = () => {
          const video = posts.find((item) => item.$id === videoId);
         if (!video) return;
     
-        const userId = user.documents[0].$id;
+        const userId = user.$id;
   
         const isBookmarked = video.bookmark.includes(userId);
     
@@ -120,7 +120,7 @@ const Home = () => {
               <View>
                 <Text className="font-pmedium text-sm text-gray-100"> Welcome back</Text>
                 <Text className="text-2xl font-psemibold text-white">
-                   {user?.documents?.[0]?.username || "Guest"}
+                   {user?.username || "Guest"}
                 </Text>
               </View>
               <View className="mt-1.5">

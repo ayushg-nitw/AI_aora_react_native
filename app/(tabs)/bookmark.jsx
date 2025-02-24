@@ -47,7 +47,7 @@ const Home = () => {
   };
 
   const handleBookmark = async (videoId) => {
-    if (!user || !user.documents || user.documents.length === 0) {
+    if (!user) {
       Alert.alert("Error", "User information is missing. Please log in again.");
       return;
     }
@@ -56,7 +56,7 @@ const Home = () => {
        const video = posts.find((item) => item.$id === videoId);
       if (!video) return;
   
-      const userId = user.documents[0].$id;
+      const userId = user.$id;
 
       const isBookmarked = video.bookmark.includes(userId);
   
@@ -87,7 +87,7 @@ const Home = () => {
   );
 
   const bookmarkedVideos = posts?.filter((video) => 
-    Array.isArray(video.bookmark) && video.bookmark.includes(user.documents[0].$id)
+    Array.isArray(video.bookmark) && video.bookmark.includes(user.$id)
   ) || [];
   
   return (

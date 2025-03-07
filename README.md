@@ -1,7 +1,9 @@
 # AI_aora_react_native
-This is my first react native app with expo and several other helpful libraries.  This is my learning project of react native for JSmastery youtube channel
+
 =======
 
+This is my first react native app with expo and several other helpful libraries.  This development helped me gaining a lot of handful expereince as an app developer.
+Credit: Js-Mastery Youtube Channel.
 
 # Welcome to your Expo app 👋
 
